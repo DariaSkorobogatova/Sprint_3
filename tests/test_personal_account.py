@@ -1,92 +1,61 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
-
 from variables import *
-from locators import *
+from fixture.authorisation import Authorisation
+from fixture.registration import Registration
+from fixture.personal_account import PersonalAccount
 
 
 class TestPersonalAccount:
 
     def test_go_to_personal_account(self, driver):
-        driver.get(main_page)
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, main_page_enter_acc_button)))
-
-        driver.find_element(By.XPATH, personal_acc).click()
-
-        driver.find_element(By.XPATH, input_email).send_keys(email_for_auth)
-        driver.find_element(By.NAME, input_password).send_keys(passwd_for_auth)
-        driver.find_element(By.XPATH, enter_button).click()
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, main_page_make_order_button)))
-
-        driver.find_element(By.XPATH, personal_acc).click()
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, profile)))
-
-        assert len(driver.find_elements(By.XPATH, profile)) == 1
+        auth = Authorisation(driver)
+        pc = PersonalAccount(driver)
+        auth.go_to_main_page()
+        auth.wait_for_page_to_load()
+        auth.click_personal_acc_bt()
+        auth.log_in(email_for_auth, passwd_for_auth)
+        auth.wait_make_order_bt_is_clickable()
+        auth.click_personal_acc_bt()
+        pc.wait_profile_loaded()
+        assert pc.profile_bt_is_clickable()
 
     def test_from_personal_acc_to_constructor(self, driver):
-        driver.get(login_page)
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, enter_button)))
-
-        driver.find_element(By.XPATH, input_email).send_keys(email_for_auth)
-        driver.find_element(By.NAME, input_password).send_keys(passwd_for_auth)
-        driver.find_element(By.XPATH, enter_button).click()
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, main_page_make_order_button)))
-
-        driver.find_element(By.XPATH, personal_acc).click()
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, profile)))
-
-        driver.find_element(By.XPATH, constructor).click()
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, main_page_make_order_button)))
-
-        assert len(driver.find_elements(By.XPATH, main_page_make_order_button)) == 1
+        auth = Authorisation(driver)
+        pc = PersonalAccount(driver)
+        reg = Registration(driver)
+        auth.go_to_login_page()
+        reg.wait_for_enter_bt_is_clickable()
+        auth.log_in(email_for_auth, passwd_for_auth)
+        auth.wait_make_order_bt_is_clickable()
+        auth.click_personal_acc_bt()
+        pc.wait_profile_loaded()
+        pc.click_constructor()
+        auth.wait_make_order_bt_is_clickable()
+        assert auth.make_order_bt_is_clickable()
 
     def test_from_personal_acc_click_main_logo(self, driver):
-        driver.get(login_page)
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, enter_button)))
-
-        driver.find_element(By.XPATH, input_email).send_keys(email_for_auth)
-        driver.find_element(By.NAME, input_password).send_keys(passwd_for_auth)
-        driver.find_element(By.XPATH, enter_button).click()
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, main_page_make_order_button)))
-
-        driver.find_element(By.XPATH, personal_acc).click()
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, profile)))
-
-        driver.find_element(By.CSS_SELECTOR, main_logo).click()
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, main_page_make_order_button)))
-
-        assert len(driver.find_elements(By.XPATH, main_page_make_order_button)) == 1
+        auth = Authorisation(driver)
+        pc = PersonalAccount(driver)
+        reg = Registration(driver)
+        auth.go_to_login_page()
+        reg.wait_for_enter_bt_is_clickable()
+        auth.log_in(email_for_auth, passwd_for_auth)
+        auth.wait_make_order_bt_is_clickable()
+        auth.click_personal_acc_bt()
+        pc.wait_profile_loaded()
+        pc.click_main_logo()
+        auth.wait_make_order_bt_is_clickable()
+        assert auth.make_order_bt_is_clickable()
 
     def test_from_personal_acc_logout(self, driver):
-        driver.get(login_page)
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, enter_button)))
-
-        driver.find_element(By.XPATH, input_email).send_keys(email_for_auth)
-        driver.find_element(By.NAME, input_password).send_keys(passwd_for_auth)
-        driver.find_element(By.XPATH, enter_button).click()
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, main_page_make_order_button)))
-
-        driver.find_element(By.XPATH, personal_acc).click()
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, profile)))
-
-        driver.find_element(By.XPATH, logout_button).click()
-
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, enter_button)))
-
-        assert len(driver.find_elements(By.XPATH, enter_button)) == 1
-
+        auth = Authorisation(driver)
+        pc = PersonalAccount(driver)
+        reg = Registration(driver)
+        auth.go_to_login_page()
+        reg.wait_for_enter_bt_is_clickable()
+        auth.log_in(email_for_auth, passwd_for_auth)
+        auth.wait_make_order_bt_is_clickable()
+        auth.click_personal_acc_bt()
+        pc.wait_profile_loaded()
+        pc.click_logout_bt()
+        reg.wait_for_enter_bt_is_clickable()
+        assert reg.enter_bt_is_clickable()
