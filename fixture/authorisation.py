@@ -7,8 +7,8 @@ class Authorisation:
     def __init__(self, driver):
         self.driver = driver
 
-    def go_to_main_page(self):
-        self.driver.get('https://stellarburgers.nomoreparties.site/')
+    def go_to_main_page(self, url):
+        self.driver.get(url)
 
     def wait_for_page_to_load(self):
         WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable(tuple(l.main_page_enter_acc_button)))
@@ -36,7 +36,10 @@ class Authorisation:
     def click_auth_link(self):
         self.driver.find_element(*l.auth_link).click()
 
-    def go_to_forgot_passwd_page(self):
-        self.driver.get('https://stellarburgers.nomoreparties.site/forgot-password')
+    def go_to_forgot_passwd_page(self, url):
+        self.driver.get(url)
+
+    def go_to_login_page(self, url):
+        self.driver.get(url)
 
 

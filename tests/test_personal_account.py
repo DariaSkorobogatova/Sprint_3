@@ -1,4 +1,4 @@
-from variables import *
+from data import *
 from fixture.authorisation import Authorisation
 from fixture.registration import Registration
 from fixture.personal_account import PersonalAccount
@@ -9,7 +9,7 @@ class TestPersonalAccount:
     def test_go_to_personal_account(self, driver):
         auth = Authorisation(driver)
         pc = PersonalAccount(driver)
-        auth.go_to_main_page()
+        auth.go_to_main_page(main_page)
         auth.wait_for_page_to_load()
         auth.click_personal_acc_bt()
         auth.log_in(email_for_auth, passwd_for_auth)
@@ -22,7 +22,7 @@ class TestPersonalAccount:
         auth = Authorisation(driver)
         pc = PersonalAccount(driver)
         reg = Registration(driver)
-        auth.go_to_login_page()
+        auth.go_to_login_page(login_page)
         reg.wait_for_enter_bt_is_clickable()
         auth.log_in(email_for_auth, passwd_for_auth)
         auth.wait_make_order_bt_is_clickable()
@@ -36,7 +36,7 @@ class TestPersonalAccount:
         auth = Authorisation(driver)
         pc = PersonalAccount(driver)
         reg = Registration(driver)
-        auth.go_to_login_page()
+        auth.go_to_login_page(login_page)
         reg.wait_for_enter_bt_is_clickable()
         auth.log_in(email_for_auth, passwd_for_auth)
         auth.wait_make_order_bt_is_clickable()
@@ -50,7 +50,7 @@ class TestPersonalAccount:
         auth = Authorisation(driver)
         pc = PersonalAccount(driver)
         reg = Registration(driver)
-        auth.go_to_login_page()
+        auth.go_to_login_page(login_page)
         reg.wait_for_enter_bt_is_clickable()
         auth.log_in(email_for_auth, passwd_for_auth)
         auth.wait_make_order_bt_is_clickable()

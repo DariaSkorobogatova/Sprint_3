@@ -7,8 +7,8 @@ class Registration:
     def __init__(self, driver):
         self.driver = driver
 
-    def go_to_reg_page(self):
-        self.driver.get('https://stellarburgers.nomoreparties.site/register')
+    def go_to_reg_page(self, url):
+        self.driver.get(url)
 
     def fill_reg_form(self, name, email, passwd):
         self.driver.find_element(*l.input_name).send_keys(name)

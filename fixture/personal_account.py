@@ -1,7 +1,7 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-
 from locators.personal_account import PersonalAccountLocators as l
+
 
 class PersonalAccount:
     def __init__(self, driver):

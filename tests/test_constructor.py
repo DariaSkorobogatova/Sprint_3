@@ -1,4 +1,4 @@
-from variables import *
+from data import *
 from fixture.authorisation import Authorisation
 from fixture.registration import Registration
 from fixture.constructor import Constructor
@@ -10,7 +10,7 @@ class TestConstructor:
         auth = Authorisation(driver)
         cnstr = Constructor(driver)
         reg = Registration(driver)
-        auth.go_to_login_page()
+        auth.go_to_login_page(login_page)
         reg.wait_for_enter_bt_is_clickable()
         auth.log_in(email_for_auth, passwd_for_auth)
         auth.wait_make_order_bt_is_clickable()
@@ -21,7 +21,7 @@ class TestConstructor:
         auth = Authorisation(driver)
         cnstr = Constructor(driver)
         reg = Registration(driver)
-        auth.go_to_login_page()
+        auth.go_to_login_page(login_page)
         reg.wait_for_enter_bt_is_clickable()
         auth.log_in(email_for_auth, passwd_for_auth)
         auth.wait_make_order_bt_is_clickable()
@@ -32,7 +32,7 @@ class TestConstructor:
         auth = Authorisation(driver)
         cnstr = Constructor(driver)
         reg = Registration(driver)
-        auth.go_to_login_page()
+        auth.go_to_login_page(login_page)
         reg.wait_for_enter_bt_is_clickable()
         auth.log_in(email_for_auth, passwd_for_auth)
         auth.wait_make_order_bt_is_clickable()
